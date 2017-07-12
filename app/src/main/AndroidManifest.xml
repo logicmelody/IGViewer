@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.main.SplashActivity"
+        <activity android:name=".ui.login.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SplashScreen">
             <intent-filter>
@@ -27,7 +27,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".ui.main.InstagramLoginActivity"
+        <activity android:name=".ui.login.InstagramLoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeWithActionBar"/>
 

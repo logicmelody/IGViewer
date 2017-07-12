@@ -1,4 +1,4 @@
-package com.dl.igviewer.ui.main;
+package com.dl.igviewer.ui.login;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import com.dl.igviewer.R;
 import com.dl.igviewer.backgroundtask.GetAuthenticationTokenAsyncTask;
 import com.dl.igviewer.backgroundtask.GetLoginUserAsyncTask;
+import com.dl.igviewer.ui.main.InstagramDataCache;
+import com.dl.igviewer.ui.main.MainActivity;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener,
         GetAuthenticationTokenAsyncTask.OnGetAuthenticationTokenListener, GetLoginUserAsyncTask.OnGetLoginUserListener {

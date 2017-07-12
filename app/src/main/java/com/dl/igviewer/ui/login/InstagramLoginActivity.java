@@ -1,4 +1,4 @@
-package com.dl.igviewer.ui.main;
+package com.dl.igviewer.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
