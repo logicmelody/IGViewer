@@ -1,3 +1,7 @@
 <resources>
+
     <string name="app_name">IGViewer</string>
+    <string name="all_ig">IG</string>
+    <string name="all_viewer">Viewer</string>
+
 </resources>
