@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -32,7 +31,7 @@ public class InstagramLoginActivity extends AppCompatActivity {
 
         private void sendCodeBack(String code) {
             Intent intent = new Intent();
-            //intent.putExtra(InstagramMainActivity.EXTRA_INSTAGRAM_CODE, code);
+            intent.putExtra(SplashActivity.EXTRA_INSTAGRAM_CODE, code);
 
             setResult(RESULT_OK, intent);
             finish();
