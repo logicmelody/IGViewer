@@ -3,13 +3,16 @@ package com.dl.igviewer.ui.main;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.dl.igviewer.R;
+import com.dl.igviewer.backgroundtask.GetAuthenticationTokenAsyncTask;
 
-public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
+public class SplashActivity extends AppCompatActivity implements View.OnClickListener,
+        GetAuthenticationTokenAsyncTask.OnGetAuthenticationTokenListener {
 
     public static final String EXTRA_INSTAGRAM_CODE = "com.dl.dlexerciseandroid.EXTRA_INSTAGRAM_CODE";
 
@@ -59,11 +62,15 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
                         break;
                     }
 
-                    mLoginButton.setVisibility(View.GONE);
-
                     String code = data.getStringExtra(EXTRA_INSTAGRAM_CODE);
 
-                    Log.d("danny", "Instagram code = " + code);
+                    if (TextUtils.isEmpty(code)) {
+                        break;
+                    }
+
+                    mLoginButton.setVisibility(View.GONE);
+
+                    new GetAuthenticationTokenAsyncTask(SplashActivity.this, this).execute(code);
 
                 } else if (RESULT_CANCELED == resultCode) {
                     mLoginButton.setVisibility(View.VISIBLE);
@@ -71,5 +78,18 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
                 break;
         }
+    }
+
+    @Override
+    public void onGetAuthenticationTokenSuccessful() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    @Override
+    public void onGetAuthenticationTokenFailed() {
+        mLoginButton.setVisibility(View.VISIBLE);
     }
 }

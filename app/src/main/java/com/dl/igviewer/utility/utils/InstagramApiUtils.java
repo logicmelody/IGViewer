@@ -4,16 +4,13 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.dl.igviewer.R;
+import com.dl.igviewer.datastructure.IGUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-/**
- * Created by logicmelody on 2017/7/9.
- */
 
 public class InstagramApiUtils {
 
@@ -108,29 +105,29 @@ public class InstagramApiUtils {
         return UrlUtils.buildUrlString(baseUrlStringBuilder.toString(), map);
     }
 
-//    public static IGUser getLoginUserFromAuthentication(JSONObject userObject) throws JSONException {
-//        if (userObject == null) {
-//            return null;
-//        }
-//
-//        String id = JsonUtils.getStringFromJson(userObject, EndPointKeys.ID);
-//        String userName = JsonUtils.getStringFromJson(userObject, EndPointKeys.USER_NAME);
-//        String fullName = JsonUtils.getStringFromJson(userObject, EndPointKeys.FULL_NAME);
-//        String profilePicture = JsonUtils.getStringFromJson(userObject, EndPointKeys.PROFILE_PICTURE);
-//
-//        return new IGUser(id, userName, fullName, profilePicture);
-//    }
-//
-//    public static IGUser getLoginUserFromEndPoint(JSONObject dataObject) throws JSONException {
-//        if (dataObject == null) {
-//            return null;
-//        }
-//
-//        String id = JsonUtils.getStringFromJson(dataObject, EndPointKeys.ID);
-//        String userName = JsonUtils.getStringFromJson(dataObject, EndPointKeys.USER_NAME);
-//        String fullName = JsonUtils.getStringFromJson(dataObject, EndPointKeys.FULL_NAME);
-//        String profilePicture = JsonUtils.getStringFromJson(dataObject, EndPointKeys.PROFILE_PICTURE);
-//
-//        return new IGUser(id, userName, fullName, profilePicture);
-//    }
+    public static IGUser getLoginUserFromAuthentication(JSONObject userObject) throws JSONException {
+        if (userObject == null) {
+            return null;
+        }
+
+        String id = JsonUtils.getStringFromJson(userObject, EndPointKeys.ID);
+        String userName = JsonUtils.getStringFromJson(userObject, EndPointKeys.USER_NAME);
+        String fullName = JsonUtils.getStringFromJson(userObject, EndPointKeys.FULL_NAME);
+        String profilePicture = JsonUtils.getStringFromJson(userObject, EndPointKeys.PROFILE_PICTURE);
+
+        return new IGUser(id, userName, fullName, profilePicture);
+    }
+
+    public static IGUser getLoginUserFromEndPoint(JSONObject dataObject) throws JSONException {
+        if (dataObject == null) {
+            return null;
+        }
+
+        String id = JsonUtils.getStringFromJson(dataObject, EndPointKeys.ID);
+        String userName = JsonUtils.getStringFromJson(dataObject, EndPointKeys.USER_NAME);
+        String fullName = JsonUtils.getStringFromJson(dataObject, EndPointKeys.FULL_NAME);
+        String profilePicture = JsonUtils.getStringFromJson(dataObject, EndPointKeys.PROFILE_PICTURE);
+
+        return new IGUser(id, userName, fullName, profilePicture);
+    }
 }

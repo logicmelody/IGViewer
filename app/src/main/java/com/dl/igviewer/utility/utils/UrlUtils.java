@@ -3,9 +3,6 @@ package com.dl.igviewer.utility.utils;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- * Created by daz on 10/9/15.
- */
 public class UrlUtils {
 
     public static String buildUrlString(String baseUrl, Map<String, String> queries) {

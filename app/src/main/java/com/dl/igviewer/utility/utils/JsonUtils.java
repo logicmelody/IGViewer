@@ -4,9 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by logicmelody on 2016/1/28.
- */
 public class JsonUtils {
 
     public static String getStringFromJson(JSONObject jsonObject, String key) throws JSONException {
