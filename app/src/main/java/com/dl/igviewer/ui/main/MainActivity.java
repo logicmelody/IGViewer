@@ -6,10 +6,15 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.dl.igviewer.R;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
+
+    private CircleImageView mLoginUserAvatarView;
 
 
     @Override
@@ -27,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void findViews() {
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+        mLoginUserAvatarView = (CircleImageView) findViewById(R.id.circle_image_view_main_login_user_avatar);
     }
 
     private void setupActionBar() {
@@ -36,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(false);
+
+            Picasso.with(this).load(InstagramDataCache.getInstance().getLoginUser().getProfilePicture())
+                              .placeholder(R.drawable.ic_login_user_avatar_placeholder)
+                              .into(mLoginUserAvatarView);
         }
     }
 

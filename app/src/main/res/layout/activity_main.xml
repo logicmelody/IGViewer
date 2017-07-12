@@ -37,6 +37,14 @@
 
         </LinearLayout>
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circle_image_view_main_login_user_avatar"
+            android:layout_width="@dimen/width_height_main_login_user_avatar"
+            android:layout_height="@dimen/width_height_main_login_user_avatar"
+            android:layout_marginRight="@dimen/margin_right_main_login_user_avatar"
+            android:layout_gravity="right"
+            android:background="?selectableItemBackground"/>
+
     </android.support.v7.widget.Toolbar>
 
 </LinearLayout>

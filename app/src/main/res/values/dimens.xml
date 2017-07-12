@@ -7,5 +7,7 @@
 
     <!-- Main -->
     <dimen name="text_size_main_title">30dp</dimen>
+    <dimen name="width_height_main_login_user_avatar">43dp</dimen>
+    <dimen name="margin_right_main_login_user_avatar">15dp</dimen>
 
 </resources>
