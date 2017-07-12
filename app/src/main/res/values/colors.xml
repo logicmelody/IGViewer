@@ -16,4 +16,7 @@
     <color name="all_black">#FF000000</color>
     <color name="all_white">#FFFFFFFF</color>
 
+    <!-- Feed -->
+    <color name="background_feed_item">#FF2C2F34</color>
+
 </resources>

@@ -5,6 +5,7 @@
     <string name="all_ig">IG</string>
     <string name="all_viewer">Viewer</string>
     <string name="all_login">Login</string>
+    <string name="all_likes">Likes</string>
 
     <string name="instagram_client_id">9f822c320208490cabb4bf2c5e02573f</string>
     <string name="instagram_client_secret">6fc0e482b17c42e1ab7237268e60ea39</string>

@@ -10,4 +10,8 @@
     <dimen name="width_height_main_login_user_avatar">43dp</dimen>
     <dimen name="margin_right_main_login_user_avatar">15dp</dimen>
 
+    <!-- Feed -->
+    <dimen name="margin_feed_item">3dp</dimen>
+    <dimen name="padding_feed_item_description">5dp</dimen>
+
 </resources>
