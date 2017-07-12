@@ -4,15 +4,15 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.dl.igviewer.R;
 import com.dl.igviewer.backgroundtask.GetAuthenticationTokenAsyncTask;
+import com.dl.igviewer.backgroundtask.GetLoginUserAsyncTask;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener,
-        GetAuthenticationTokenAsyncTask.OnGetAuthenticationTokenListener {
+        GetAuthenticationTokenAsyncTask.OnGetAuthenticationTokenListener, GetLoginUserAsyncTask.OnGetLoginUserListener {
 
     public static final String EXTRA_INSTAGRAM_CODE = "com.dl.dlexerciseandroid.EXTRA_INSTAGRAM_CODE";
 
@@ -31,6 +31,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private void initialize() {
         findViews();
         setupViews();
+        tryTokenToLogin();
     }
 
     private void findViews() {
@@ -39,6 +40,17 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     private void setupViews() {
         mLoginButton.setOnClickListener(this);
+    }
+
+    private void tryTokenToLogin() {
+        if (InstagramDataCache.hasTokenInSharedPreference(this)) {
+            mLoginButton.setVisibility(View.GONE);
+
+            new GetLoginUserAsyncTask(this, this).execute();
+
+        } else {
+            mLoginButton.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -82,6 +94,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onGetAuthenticationTokenSuccessful() {
+        gotToMainPage();
+    }
+
+    private void gotToMainPage() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
 
@@ -90,6 +106,16 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onGetAuthenticationTokenFailed() {
+        mLoginButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onGetLoginUserSuccessful() {
+        gotToMainPage();
+    }
+
+    @Override
+    public void onGetLoginUserFailed() {
         mLoginButton.setVisibility(View.VISIBLE);
     }
 }
