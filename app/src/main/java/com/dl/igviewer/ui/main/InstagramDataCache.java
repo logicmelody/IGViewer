@@ -2,6 +2,9 @@ package com.dl.igviewer.ui.main;
 
 import android.content.Context;
 import android.preference.PreferenceManager;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
+import android.webkit.ValueCallback;
 
 import com.dl.igviewer.datastructure.IGUser;
 
@@ -49,5 +52,13 @@ public class InstagramDataCache {
 
     public IGUser getLoginUser() {
         return mLoginUser;
+    }
+
+    public void release(Context context) {
+        CookieManager.getInstance().removeAllCookie();
+        PreferenceManager.getDefaultSharedPreferences(context).edit().remove(PREFERENCE_TOKEN).apply();
+
+        mToken = null;
+        mLoginUser = null;
     }
 }

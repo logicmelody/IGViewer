@@ -42,8 +42,7 @@
             android:layout_width="@dimen/width_height_main_login_user_avatar"
             android:layout_height="@dimen/width_height_main_login_user_avatar"
             android:layout_marginRight="@dimen/margin_right_main_login_user_avatar"
-            android:layout_gravity="right"
-            android:background="?selectableItemBackground"/>
+            android:layout_gravity="right" />
 
     </android.support.v7.widget.Toolbar>
 

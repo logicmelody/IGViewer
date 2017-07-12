@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.login.SplashActivity"
+        <activity
+            android:name=".ui.login.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SplashScreen">
             <intent-filter>
@@ -23,11 +24,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.main.MainActivity"
+        <activity
+            android:name=".ui.main.MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.login.InstagramLoginActivity"
+        <activity
+            android:name=".ui.login.InstagramLoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeWithActionBar" />
+
+        <activity android:name=".ui.profile.ProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeWithActionBar"/>
 

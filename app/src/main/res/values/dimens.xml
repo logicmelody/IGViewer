@@ -14,4 +14,8 @@
     <dimen name="margin_feed_item">3dp</dimen>
     <dimen name="padding_feed_item_description">5dp</dimen>
 
+    <!-- Profile -->
+    <dimen name="width_height_profile_login_user_avatar">100dp</dimen>
+    <dimen name="margin_top_profile_logout_button">70dp</dimen>
+
 </resources>
