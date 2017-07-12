@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Splash screen -->
     <dimen name="text_size_splash_screen_title">60dp</dimen>
+    <dimen name="margin_top_splash_screen_login_button">70dp</dimen>
 
 </resources>

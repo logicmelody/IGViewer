@@ -4,8 +4,8 @@
     <color name="colorPrimary">@color/all_theme</color>
     <color name="colorPrimaryDark">@color/all_theme</color>
     <color name="colorAccent">@color/all_theme_blue</color>
-    <color name="colorTextPrimary">#FFFFFFFF</color>
-    <color name="colorTextSecondary">#FFFFFFFF</color>
+    <color name="colorTextPrimary">#FF000000</color>
+    <color name="colorTextSecondary">#FF000000</color>
     <color name="colorControlNormal">#FFFFFFFF</color>
     <color name="colorActionBarTitle">#FFFFFFFF</color>
     <color name="colorActionBarSubtitle">#FFFFFFFF</color>
