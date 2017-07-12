@@ -4,13 +4,17 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.dl.igviewer.R;
+import com.dl.igviewer.backgroundtask.GetRecentMediaAsyncTask;
+import com.dl.igviewer.datastructure.IGImage;
+import com.dl.igviewer.datastructure.IGRecentMedia;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GetRecentMediaAsyncTask.OnGetRecentMediaListener {
 
     private Toolbar mToolbar;
 
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initialize();
+        new GetRecentMediaAsyncTask(this, this).execute();
     }
 
     private void initialize() {
@@ -50,6 +55,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupViews() {
+
+    }
+
+    @Override
+    public void onGetRecentMediaSuccessful(IGRecentMedia igRecentMedia) {
+        for (IGImage igImage : igRecentMedia.getImageList()) {
+            Log.d("danny", igImage.toString());
+        }
+    }
+
+    @Override
+    public void onGetRecentMediaFailed() {
 
     }
 }
