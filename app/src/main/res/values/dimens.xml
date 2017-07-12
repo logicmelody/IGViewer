@@ -5,4 +5,7 @@
     <dimen name="text_size_splash_screen_title">60dp</dimen>
     <dimen name="margin_top_splash_screen_login_button">70dp</dimen>
 
+    <!-- Main -->
+    <dimen name="text_size_main_title">30dp</dimen>
+
 </resources>
