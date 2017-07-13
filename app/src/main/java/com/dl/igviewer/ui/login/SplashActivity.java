@@ -17,7 +17,7 @@ import com.dl.igviewer.ui.main.MainActivity;
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener,
         GetAuthenticationTokenAsyncTask.OnGetAuthenticationTokenListener, GetLoginUserAsyncTask.OnGetLoginUserListener {
 
-    public static final String EXTRA_INSTAGRAM_CODE = "com.dl.dlexerciseandroid.EXTRA_INSTAGRAM_CODE";
+    public static final String EXTRA_INSTAGRAM_CODE = "com.dl.igviewer.EXTRA_INSTAGRAM_CODE";
 
     private static final int REQUEST_INSTAGRAM_LOGIN = 1;
     private static final int SPLASH_SCREEN_DELAY_TIME = 1000;

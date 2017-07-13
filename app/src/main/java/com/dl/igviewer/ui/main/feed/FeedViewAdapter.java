@@ -17,6 +17,10 @@ import java.util.List;
 
 public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
+    public interface OnClickFeedItemListener {
+        void onClickFeedItem(IGImage igImage);
+    }
+
     public interface OnLoadMoreListener {
         void OnLoadMore();
     }
@@ -25,6 +29,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private List<FeedViewItem> mDataList;
 
     private OnLoadMoreListener mOnLoadMoreListener;
+    private OnClickFeedItemListener mOnClickFeedItemListener;
 
 
     public static final class ViewType {
@@ -43,9 +48,11 @@ public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
-    public FeedViewAdapter(Context context, OnLoadMoreListener listener) {
+    public FeedViewAdapter(Context context,
+                           OnLoadMoreListener onLoadMoreListener, OnClickFeedItemListener onClickFeedItemListener) {
         mContext = context;
-        mOnLoadMoreListener = listener;
+        mOnLoadMoreListener = onLoadMoreListener;
+        mOnClickFeedItemListener = onClickFeedItemListener;
         mDataList = new ArrayList<>();
     }
 
@@ -54,7 +61,8 @@ public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         switch (viewType) {
             case ViewType.IMAGE:
                 return new IGImageViewHolder(
-                        LayoutInflater.from(mContext).inflate(R.layout.item_feed, viewGroup, false));
+                        LayoutInflater.from(mContext).inflate(R.layout.item_feed, viewGroup, false),
+                        mOnClickFeedItemListener);
 
             case ViewType.LOAD_MORE:
                 return new LoadMoreViewHolder(
@@ -63,7 +71,8 @@ public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             default:
                 return new IGImageViewHolder(
-                        LayoutInflater.from(mContext).inflate(R.layout.item_feed, viewGroup, false));
+                        LayoutInflater.from(mContext).inflate(R.layout.item_feed, viewGroup, false),
+                        mOnClickFeedItemListener);
         }
     }
 

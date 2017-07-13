@@ -4,10 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-/**
- * Created by logicmelody on 2017/7/11.
- */
-
 public class DynamicHeightNetworkImageView extends ImageView {
 
     private float mAspectRatio = 1.5F;

@@ -1,6 +1,9 @@
 package com.dl.igviewer.datastructure;
 
-public class IGImage {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class IGImage implements Parcelable {
 
     private String mId;
     private String mThumbnailUrl;
@@ -21,6 +24,42 @@ public class IGImage {
         mCreatedTime = createdTime;
         mLikeCount = likeCount;
     }
+
+    protected IGImage(Parcel in) {
+        mId = in.readString();
+        mThumbnailUrl = in.readString();
+        mStandardUrl = in.readString();
+        mRatio = in.readFloat();
+        mCreatedTime = in.readLong();
+        mLikeCount = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mId);
+        dest.writeString(mThumbnailUrl);
+        dest.writeString(mStandardUrl);
+        dest.writeFloat(mRatio);
+        dest.writeLong(mCreatedTime);
+        dest.writeInt(mLikeCount);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<IGImage> CREATOR = new Creator<IGImage>() {
+        @Override
+        public IGImage createFromParcel(Parcel in) {
+            return new IGImage(in);
+        }
+
+        @Override
+        public IGImage[] newArray(int size) {
+            return new IGImage[size];
+        }
+    };
 
     public String getId() {
         return mId;

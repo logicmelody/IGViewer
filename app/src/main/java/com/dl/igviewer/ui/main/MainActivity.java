@@ -11,7 +11,9 @@ import android.view.View;
 
 import com.dl.igviewer.R;
 import com.dl.igviewer.backgroundtask.GetRecentMediaAsyncTask;
+import com.dl.igviewer.datastructure.IGImage;
 import com.dl.igviewer.datastructure.IGRecentMedia;
+import com.dl.igviewer.ui.displayimage.DisplayImageActivity;
 import com.dl.igviewer.ui.login.SplashActivity;
 import com.dl.igviewer.ui.main.feed.FeedViewAdapter;
 import com.dl.igviewer.ui.profile.ProfileActivity;
@@ -20,7 +22,8 @@ import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
-        GetRecentMediaAsyncTask.OnGetRecentMediaListener, FeedViewAdapter.OnLoadMoreListener {
+        GetRecentMediaAsyncTask.OnGetRecentMediaListener, FeedViewAdapter.OnLoadMoreListener,
+        FeedViewAdapter.OnClickFeedItemListener {
 
     private static final int REQUEST_PROFILE = 3;
 
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setupFeedView() {
-        mFeedViewAdapter = new FeedViewAdapter(this, this);
+        mFeedViewAdapter = new FeedViewAdapter(this, this, this);
 
         mFeedView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mFeedView.setAdapter(mFeedViewAdapter);
@@ -125,5 +128,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void OnLoadMore() {
 
+    }
+
+    @Override
+    public void onClickFeedItem(IGImage igImage) {
+        if (igImage == null) {
+            return;
+        }
+
+        displayImage(igImage);
+    }
+
+    private void displayImage(IGImage igImage) {
+        Intent intent = new Intent(this, DisplayImageActivity.class);
+        intent.putExtra(DisplayImageActivity.EXTRA_IG_IMAGE, igImage);
+
+        startActivity(intent);
     }
 }

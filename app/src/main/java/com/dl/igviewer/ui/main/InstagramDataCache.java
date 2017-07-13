@@ -10,7 +10,7 @@ import com.dl.igviewer.datastructure.IGUser;
 
 public class InstagramDataCache {
 
-    private static final String PREFERENCE_TOKEN = "com.dl.dlexerciseandroid.PREFERENCE_TOKEN";
+    private static final String PREFERENCE_TOKEN = "com.dl.igviewer.PREFERENCE_TOKEN";
 
     private volatile static InstagramDataCache sInstagramDataCache = null;
 

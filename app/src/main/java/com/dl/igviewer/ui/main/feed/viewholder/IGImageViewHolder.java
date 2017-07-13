@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.dl.igviewer.R;
 import com.dl.igviewer.datastructure.IGImage;
+import com.dl.igviewer.ui.main.feed.FeedViewAdapter.OnClickFeedItemListener;
 import com.dl.igviewer.utility.view.DynamicHeightNetworkImageView;
 import com.squareup.picasso.Picasso;
 
@@ -13,11 +14,13 @@ public class IGImageViewHolder extends BaseViewHolder {
     private DynamicHeightNetworkImageView mImageView;
     private TextView mLikeCountTextView;
 
+    private OnClickFeedItemListener mOnClickFeedItemListener;
 
-    public IGImageViewHolder(View itemView) {
+
+    public IGImageViewHolder(View itemView, OnClickFeedItemListener listener) {
         super(itemView);
         findViews(itemView);
-        setupViews();
+        mOnClickFeedItemListener = listener;
     }
 
     @Override
@@ -26,17 +29,19 @@ public class IGImageViewHolder extends BaseViewHolder {
         mLikeCountTextView = (TextView) itemView.findViewById(R.id.text_view_feed_item_like_count);
     }
 
-    private void setupViews() {
+    @Override
+    public void bind(final IGImage igImage) {
         mRootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mOnClickFeedItemListener == null) {
+                    return;
+                }
 
+                mOnClickFeedItemListener.onClickFeedItem(igImage);
             }
         });
-    }
 
-    @Override
-    public void bind(IGImage igImage) {
         bindImage(igImage);
         bindLikeCount(igImage);
     }
