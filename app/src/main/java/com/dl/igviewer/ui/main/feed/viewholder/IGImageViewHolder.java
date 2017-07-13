@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.dl.igviewer.R;
 import com.dl.igviewer.datastructure.IGImage;
 import com.dl.igviewer.ui.main.feed.FeedViewAdapter.OnClickFeedItemListener;
+import com.dl.igviewer.utility.utils.GeneralUtils;
 import com.dl.igviewer.utility.view.DynamicHeightNetworkImageView;
 import com.squareup.picasso.Picasso;
 
@@ -55,11 +56,6 @@ public class IGImageViewHolder extends BaseViewHolder {
     }
 
     private void bindLikeCount(IGImage igImage) {
-        StringBuilder sb = new StringBuilder();
-        int likeCount = igImage.getLikeCount() < 0 ? 0 : igImage.getLikeCount();
-
-        sb.append(likeCount).append(" ").append(itemView.getContext().getString(R.string.all_likes));
-
-        mLikeCountTextView.setText(sb.toString());
+        mLikeCountTextView.setText(GeneralUtils.generateLikesString(itemView.getContext(), igImage.getLikeCount()));
     }
 }

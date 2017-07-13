@@ -21,6 +21,7 @@
             android:id="@+id/text_view_feed_item_like_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:textColor="@color/all_theme_blue" />
 
     </LinearLayout>

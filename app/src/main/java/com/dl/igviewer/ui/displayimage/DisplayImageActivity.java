@@ -4,9 +4,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.dl.igviewer.R;
 import com.dl.igviewer.datastructure.IGImage;
+import com.dl.igviewer.utility.utils.GeneralUtils;
 import com.dl.igviewer.utility.view.DynamicHeightNetworkImageView;
 import com.squareup.picasso.Picasso;
 
@@ -17,6 +19,7 @@ public class DisplayImageActivity extends AppCompatActivity {
     private DynamicHeightNetworkImageView mImageView;
 
     private IGImage mIGImage;
+    private TextView mLikeCountTextView;
 
 
     @Override
@@ -31,11 +34,13 @@ public class DisplayImageActivity extends AppCompatActivity {
     private void initialize() {
         findViews();
         loadImage();
+        setupImageDescription();
         setupActionBar();
     }
 
     private void findViews() {
         mImageView = (DynamicHeightNetworkImageView) findViewById(R.id.image_view_display_image);
+        mLikeCountTextView = (TextView) findViewById(R.id.text_view_display_image_like_count);
     }
 
     private void loadImage() {
@@ -44,7 +49,16 @@ public class DisplayImageActivity extends AppCompatActivity {
         }
 
         mImageView.setAspectRatio(mIGImage.getRatio());
+
         Picasso.with(this).load(mIGImage.getStandardUrl()).into(mImageView);
+    }
+
+    private void setupImageDescription() {
+        if (mIGImage == null) {
+            return;
+        }
+
+        mLikeCountTextView.setText(GeneralUtils.generateLikesString(this, mIGImage.getLikeCount()));
     }
 
     private void setupActionBar() {
