@@ -4,17 +4,17 @@ import java.util.List;
 
 public class IGRecentMedia {
 
-    private String mNextMaxId;
+    private String mNextUrl;
     private List<IGImage> mImageList;
 
 
-    public IGRecentMedia(String nextMaxId, List<IGImage> imageList) {
-        mNextMaxId = nextMaxId;
+    public IGRecentMedia(String nextUrl, List<IGImage> imageList) {
+        mNextUrl = nextUrl;
         mImageList = imageList;
     }
 
-    public String getNextMaxId() {
-        return mNextMaxId;
+    public String getNextUrl() {
+        return mNextUrl;
     }
 
     public List<IGImage> getImageList() {

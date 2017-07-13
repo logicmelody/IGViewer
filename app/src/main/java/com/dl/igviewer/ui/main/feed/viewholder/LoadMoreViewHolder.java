@@ -32,7 +32,7 @@ public class LoadMoreViewHolder extends BaseViewHolder {
                     return;
                 }
 
-                mOnLoadMoreListener.OnLoadMore();
+                mOnLoadMoreListener.onLoadMore();
             }
         });
     }

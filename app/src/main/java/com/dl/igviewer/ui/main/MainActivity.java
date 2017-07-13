@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.dl.igviewer.R;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private RecyclerView mFeedView;
     private FeedViewAdapter mFeedViewAdapter;
+
+    private String mNextUrl;
 
 
     @Override
@@ -88,6 +91,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         mFeedViewAdapter.add(igRecentMedia.getImageList());
+
+        if (TextUtils.isEmpty(igRecentMedia.getNextUrl())) {
+            mFeedViewAdapter.removeLoadMoreButton();
+
+        } else {
+            mNextUrl = igRecentMedia.getNextUrl();
+        }
     }
 
     @Override
@@ -126,8 +136,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void OnLoadMore() {
-
+    public void onLoadMore() {
+        new GetRecentMediaAsyncTask(this, this, mNextUrl).execute();
     }
 
     @Override

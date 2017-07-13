@@ -31,7 +31,6 @@ public class InstagramApiUtils {
         public static final String MIN_ID = "min_id";
         public static final String COUNT = "count";
         public static final String PAGINATION = "pagination";
-        public static final String NEXT_MAX_ID = "next_max_id";
         public static final String NEXT_URL = "next_url";
         public static final String IMAGES = "images";
         public static final String IMAGE = "image";

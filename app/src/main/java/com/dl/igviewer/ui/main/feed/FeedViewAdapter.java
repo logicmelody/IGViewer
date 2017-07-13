@@ -22,7 +22,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public interface OnLoadMoreListener {
-        void OnLoadMore();
+        void onLoadMore();
     }
 
     private Context mContext;
@@ -129,7 +129,8 @@ public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void refresh() {
+    public void removeLoadMoreButton() {
+        mDataList.remove(mDataList.size() - 1);
         notifyDataSetChanged();
     }
 }

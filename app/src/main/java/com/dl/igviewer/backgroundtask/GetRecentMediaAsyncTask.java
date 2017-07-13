@@ -2,6 +2,7 @@ package com.dl.igviewer.backgroundtask;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 
 import com.dl.igviewer.datastructure.IGImage;
 import com.dl.igviewer.datastructure.IGRecentMedia;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia> {
 
-    private static final int DEFAULT_COUNT = 20;
+    private static final int DEFAULT_COUNT = 10;
 
     public interface OnGetRecentMediaListener {
         void onGetRecentMediaSuccessful(IGRecentMedia igRecentMedia);
@@ -32,6 +33,7 @@ public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia
     private OnGetRecentMediaListener mOnGetRecentMediaListener;
 
     private String mUserId;
+    private String mUrl;
 
 
     public GetRecentMediaAsyncTask(Context context, OnGetRecentMediaListener listener) {
@@ -39,20 +41,20 @@ public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia
         mOnGetRecentMediaListener = listener;
     }
 
-    public GetRecentMediaAsyncTask(Context context, OnGetRecentMediaListener listener, String userId) {
+    public GetRecentMediaAsyncTask(Context context, OnGetRecentMediaListener listener, String url) {
         mContext = context;
         mOnGetRecentMediaListener = listener;
-        mUserId = userId;
+        mUrl = url;
     }
 
     @Override
     protected IGRecentMedia doInBackground(Void... params) {
-        String getRecentMediaUrl =
+        String getRecentMediaUrl = TextUtils.isEmpty(mUrl) ?
                 InstagramApiUtils.getRecentMediaUrl(InstagramDataCache.getTokenFromSharedPreference(mContext),
-                                                    mUserId, "", "", DEFAULT_COUNT);
+                                                    mUserId, "", "", DEFAULT_COUNT) : mUrl;
         List<IGImage> imageList;
         String jsonString;
-        String nextMaxId;
+        String nextUrl;
 
         try {
             jsonString = HttpUtils.getJsonStringFromUrl(getRecentMediaUrl);
@@ -63,9 +65,10 @@ public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia
             }
 
             imageList = new ArrayList<>();
-            nextMaxId = JsonUtils.getStringFromJson(
+            nextUrl = JsonUtils.getStringFromJson(
                     JsonUtils.getJsonObjectFromJson(jsonObject, EndPointKeys.PAGINATION),
-                                                    EndPointKeys.NEXT_MAX_ID);
+                                                    EndPointKeys.NEXT_URL);
+
             JSONArray dataJsonArray = JsonUtils.getJsonArrayFromJson(jsonObject, EndPointKeys.DATA);
 
             if (dataJsonArray == null) {
@@ -110,7 +113,7 @@ public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia
             return null;
         }
 
-        return new IGRecentMedia(nextMaxId, imageList);
+        return new IGRecentMedia(nextUrl, imageList);
     }
 
     @Override
