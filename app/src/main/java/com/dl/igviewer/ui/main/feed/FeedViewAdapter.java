@@ -10,14 +10,21 @@ import com.dl.igviewer.R;
 import com.dl.igviewer.datastructure.IGImage;
 import com.dl.igviewer.ui.main.feed.viewholder.BaseViewHolder;
 import com.dl.igviewer.ui.main.feed.viewholder.IGImageViewHolder;
+import com.dl.igviewer.ui.main.feed.viewholder.LoadMoreViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
+    public interface OnLoadMoreListener {
+        void OnLoadMore();
+    }
+
     private Context mContext;
     private List<FeedViewItem> mDataList;
+
+    private OnLoadMoreListener mOnLoadMoreListener;
 
 
     public static final class ViewType {
@@ -36,8 +43,9 @@ public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
-    public FeedViewAdapter(Context context) {
+    public FeedViewAdapter(Context context, OnLoadMoreListener listener) {
         mContext = context;
+        mOnLoadMoreListener = listener;
         mDataList = new ArrayList<>();
     }
 
@@ -49,8 +57,9 @@ public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                         LayoutInflater.from(mContext).inflate(R.layout.item_feed, viewGroup, false));
 
             case ViewType.LOAD_MORE:
-                return new IGImageViewHolder(
-                        LayoutInflater.from(mContext).inflate(R.layout.item_feed_load_more, viewGroup, false));
+                return new LoadMoreViewHolder(
+                        LayoutInflater.from(mContext).inflate(R.layout.item_feed_load_more, viewGroup, false),
+                        mOnLoadMoreListener);
 
             default:
                 return new IGImageViewHolder(
@@ -63,10 +72,6 @@ public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         switch (viewHolder.getItemViewType()) {
             case ViewType.IMAGE:
                 viewHolder.bind(mDataList.get(position).igImage);
-
-                break;
-
-            case ViewType.LOAD_MORE:
 
                 break;
         }

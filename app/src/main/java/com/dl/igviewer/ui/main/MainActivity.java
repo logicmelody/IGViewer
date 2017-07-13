@@ -20,7 +20,7 @@ import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
-        GetRecentMediaAsyncTask.OnGetRecentMediaListener {
+        GetRecentMediaAsyncTask.OnGetRecentMediaListener, FeedViewAdapter.OnLoadMoreListener {
 
     private static final int REQUEST_PROFILE = 3;
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setupFeedView() {
-        mFeedViewAdapter = new FeedViewAdapter(this);
+        mFeedViewAdapter = new FeedViewAdapter(this, this);
 
         mFeedView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mFeedView.setAdapter(mFeedViewAdapter);
@@ -120,5 +120,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void restartLoginPage() {
         startActivity(new Intent(this, SplashActivity.class));
         finish();
+    }
+
+    @Override
+    public void OnLoadMore() {
+
     }
 }
