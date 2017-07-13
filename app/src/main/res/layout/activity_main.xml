@@ -46,10 +46,27 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_main_feed"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_main_feed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"/>
+
+        <TextView
+            android:id="@+id/text_view_main_no_photos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:layout_gravity="center"
+            android:text="@string/all_no_photos"
+            android:textColor="@color/all_white"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+    </FrameLayout>
 
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.dl.igviewer.R;
 import com.dl.igviewer.backgroundtask.GetRecentMediaAsyncTask;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Toolbar mToolbar;
 
     private CircleImageView mLoginUserAvatarView;
+    private TextView mNoPhotosTextView;
 
     private RecyclerView mFeedView;
     private FeedViewAdapter mFeedViewAdapter;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
         mLoginUserAvatarView = (CircleImageView) findViewById(R.id.circle_image_view_main_login_user_avatar);
         mFeedView = (RecyclerView) findViewById(R.id.recycler_view_main_feed);
+        mNoPhotosTextView = (TextView) findViewById(R.id.text_view_main_no_photos);
     }
 
     private void setupViews() {
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         mFeedViewAdapter.add(igRecentMedia.getImageList());
+        mNoPhotosTextView.setVisibility(mFeedViewAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
 
         if (TextUtils.isEmpty(igRecentMedia.getNextUrl())) {
             mFeedViewAdapter.removeLoadMoreButton();
