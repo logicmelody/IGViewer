@@ -107,7 +107,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+        mSwipeRefreshLayout.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
@@ -141,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mSwipeRefreshLayout.setRefreshing(false);
         }
     }
-
 
     @Override
     public void onGetRecentMediaFailed() {

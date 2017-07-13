@@ -23,3 +23,9 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-dontwarn com.squareup.picasso.**
+-keep class com.squareup.picasso.**
+
+-dontwarn okio.**
+-keep class okio.**
