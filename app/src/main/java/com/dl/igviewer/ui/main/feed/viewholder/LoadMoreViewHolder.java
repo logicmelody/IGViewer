@@ -2,6 +2,7 @@ package com.dl.igviewer.ui.main.feed.viewholder;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.dl.igviewer.R;
 import com.dl.igviewer.datastructure.IGImage;
@@ -16,6 +17,7 @@ public class LoadMoreViewHolder extends BaseViewHolder {
     private OnLoadMoreListener mOnLoadMoreListener;
 
     private Button mLoadMoreButton;
+    private ProgressBar mProgressBar;
 
 
     public LoadMoreViewHolder(View itemView, OnLoadMoreListener listener) {
@@ -32,18 +34,31 @@ public class LoadMoreViewHolder extends BaseViewHolder {
                     return;
                 }
 
+                showProgressBar(true);
                 mOnLoadMoreListener.onLoadMore();
             }
         });
     }
 
+    private void showProgressBar(boolean isShow) {
+        if (isShow) {
+            mLoadMoreButton.setVisibility(View.GONE);
+            mProgressBar.setVisibility(View.VISIBLE);
+
+        } else {
+            mLoadMoreButton.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     protected void findViews(View itemView) {
         mLoadMoreButton = (Button) itemView.findViewById(R.id.button_feed_item_load_more);
+        mProgressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar_feed_item_load_more);
     }
 
     @Override
     public void bind(IGImage igImage) {
-
+        showProgressBar(false);
     }
 }

@@ -78,12 +78,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public void onBindViewHolder(BaseViewHolder viewHolder, int position) {
-        switch (viewHolder.getItemViewType()) {
-            case ViewType.IMAGE:
-                viewHolder.bind(mDataList.get(position).igImage);
-
-                break;
-        }
+        viewHolder.bind(mDataList.get(position).igImage);
     }
 
     @Override
