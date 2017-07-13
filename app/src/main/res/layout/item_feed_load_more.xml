@@ -12,8 +12,8 @@
 
     <ProgressBar
         android:id="@+id/progress_bar_feed_item_load_more"
-        android:layout_width="@dimen/width_height_feed_item_progress_bar"
-        android:layout_height="@dimen/width_height_feed_item_progress_bar"
+        android:layout_width="@dimen/width_height_all_progress_bar"
+        android:layout_height="@dimen/width_height_all_progress_bar"
         android:layout_gravity="center"
         android:visibility="gone"/>
 

@@ -22,18 +22,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/all_ig"
                 android:textColor="@color/all_theme_blue"
-                android:textStyle="bold"
                 android:textSize="@dimen/text_size_main_title"
-                android:text="@string/all_ig"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/all_viewer"
                 android:textColor="@color/all_white"
-                android:textStyle="bold"
                 android:textSize="@dimen/text_size_main_title"
-                android:text="@string/all_viewer"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -59,21 +59,26 @@
                 android:id="@+id/recycler_view_main_feed"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="vertical"/>
+                android:scrollbars="vertical" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
-
 
         <TextView
             android:id="@+id/text_view_main_no_photos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:textAppearanceLarge"
             android:layout_gravity="center"
-            android:text="@string/all_no_photos"
+            android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@color/all_white"
             android:textStyle="bold"
-            android:visibility="gone"/>
+            android:text="@string/all_no_photos"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_main_feed"
+            android:layout_width="@dimen/width_height_all_progress_bar"
+            android:layout_height="@dimen/width_height_all_progress_bar"
+            android:layout_gravity="center" />
 
     </FrameLayout>
 

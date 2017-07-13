@@ -10,6 +10,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dl.igviewer.R;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FeedViewAdapter mFeedViewAdapter;
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private ProgressBar mProgressBar;
 
     private String mNextUrl;
 
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFeedView = (RecyclerView) findViewById(R.id.recycler_view_main_feed);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout_main_feed);
         mNoPhotosTextView = (TextView) findViewById(R.id.text_view_main_no_photos);
+        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar_main_feed);
     }
 
     private void setupViews() {
@@ -112,12 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onGetRecentMediaSuccessful(IGRecentMedia igRecentMedia) {
-        if (mIsFirstLaunch) {
-            mIsFirstLaunch = false;
-
-        } else {
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
+        updateLoadingUi();
 
         if (igRecentMedia.getImageList() == null || igRecentMedia.getImageList().size() == 0) {
             return;
@@ -134,9 +132,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void updateLoadingUi() {
+        if (mIsFirstLaunch) {
+            mProgressBar.setVisibility(View.GONE);
+            mIsFirstLaunch = false;
+
+        } else {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+
     @Override
     public void onGetRecentMediaFailed() {
-
+        updateLoadingUi();
     }
 
     @Override
