@@ -9,12 +9,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.dl.igviewer.R;
+import com.dl.igviewer.dialog.AlertDialogFragment;
 import com.dl.igviewer.ui.main.InstagramDataCache;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener,
+        AlertDialogFragment.OnClickAlertDialogListener {
 
     private CircleImageView mLoginUserAvatarView;
     private TextView mLoginUserTextView;
@@ -77,10 +79,30 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_profile_logout:
-                setResult(RESULT_OK);
-                finish();
+                logout();
 
                 break;
         }
+    }
+
+    private void logout() {
+        AlertDialogFragment alertDialogFragment = new AlertDialogFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(AlertDialogFragment.EXTRA_MESSAGE, getString(R.string.all_sure_to_logout));
+
+        alertDialogFragment.setArguments(bundle);
+        alertDialogFragment.show(getSupportFragmentManager(), AlertDialogFragment.TAG);
+    }
+
+    @Override
+    public void onClickAlertDialogOk() {
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    @Override
+    public void onClickAlertDialogCancel() {
+
     }
 }
