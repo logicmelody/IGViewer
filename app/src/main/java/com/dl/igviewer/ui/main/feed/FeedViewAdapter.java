@@ -2,6 +2,7 @@ package com.dl.igviewer.ui.main.feed;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -16,32 +17,101 @@ import java.util.List;
 public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private Context mContext;
-    private List<IGImage> mImageList;
+    private List<FeedViewItem> mDataList;
 
+
+    public static final class ViewType {
+        public static final int IMAGE = 0;
+        public static final int LOAD_MORE = 1;
+    }
+
+    public class FeedViewItem {
+
+        public int viewType;
+        public IGImage igImage;
+
+        public FeedViewItem(int viewType, IGImage igImage) {
+            this.viewType = viewType;
+            this.igImage = igImage;
+        }
+    }
 
     public FeedViewAdapter(Context context) {
         mContext = context;
-        mImageList = new ArrayList<>();
+        mDataList = new ArrayList<>();
     }
 
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return new IGImageViewHolder(
-                LayoutInflater.from(mContext).inflate(R.layout.item_feed, viewGroup, false));
+    public BaseViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        switch (viewType) {
+            case ViewType.IMAGE:
+                return new IGImageViewHolder(
+                        LayoutInflater.from(mContext).inflate(R.layout.item_feed, viewGroup, false));
+
+            case ViewType.LOAD_MORE:
+                return new IGImageViewHolder(
+                        LayoutInflater.from(mContext).inflate(R.layout.item_feed_load_more, viewGroup, false));
+
+            default:
+                return new IGImageViewHolder(
+                        LayoutInflater.from(mContext).inflate(R.layout.item_feed, viewGroup, false));
+        }
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder viewHolder, int i) {
-        viewHolder.bind(mImageList.get(i));
+    public void onBindViewHolder(BaseViewHolder viewHolder, int position) {
+        switch (viewHolder.getItemViewType()) {
+            case ViewType.IMAGE:
+                viewHolder.bind(mDataList.get(position).igImage);
+
+                break;
+
+            case ViewType.LOAD_MORE:
+
+                break;
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mImageList.size();
+        return mDataList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return mDataList.get(position).viewType;
+    }
+
+    @Override
+    public void onViewAttachedToWindow(BaseViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
+
+        if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
+            StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) lp;
+
+            if (holder.getItemViewType() == ViewType.LOAD_MORE) {
+                params.setFullSpan(true);
+
+            } else {
+                params.setFullSpan(false);
+            }
+        }
     }
 
     public void add(List<IGImage> imageList) {
-        mImageList.addAll(imageList);
+        if (imageList.size() == 0) {
+            return;
+        }
+
+        if (mDataList.size() == 0) {
+            mDataList.add(new FeedViewItem(ViewType.LOAD_MORE, null));
+        }
+
+        for (IGImage igImage : imageList) {
+            mDataList.add(mDataList.size() - 1, new FeedViewItem(ViewType.IMAGE, igImage));
+        }
+
         notifyDataSetChanged();
     }
 
