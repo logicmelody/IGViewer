@@ -20,6 +20,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     public static final String EXTRA_INSTAGRAM_CODE = "com.dl.dlexerciseandroid.EXTRA_INSTAGRAM_CODE";
 
     private static final int REQUEST_INSTAGRAM_LOGIN = 1;
+    private static final int SPLASH_SCREEN_DELAY_TIME = 1000;
 
     private Button mLoginButton;
 
@@ -109,7 +110,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
-        }, 1000);
+        }, SPLASH_SCREEN_DELAY_TIME);
     }
 
     @Override
