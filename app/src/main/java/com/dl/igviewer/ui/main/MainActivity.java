@@ -1,6 +1,7 @@
 package com.dl.igviewer.ui.main;
 
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,7 +38,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView mFeedView;
     private FeedViewAdapter mFeedViewAdapter;
 
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
     private String mNextUrl;
+
+    private boolean mIsFirstLaunch = true;
 
 
     @Override
@@ -53,12 +58,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setupViews();
         setupActionBar();
         setupFeedView();
+        setupSwipeRefresh();
     }
 
     private void findViews() {
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
         mLoginUserAvatarView = (CircleImageView) findViewById(R.id.circle_image_view_main_login_user_avatar);
         mFeedView = (RecyclerView) findViewById(R.id.recycler_view_main_feed);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout_main_feed);
         mNoPhotosTextView = (TextView) findViewById(R.id.text_view_main_no_photos);
     }
 
@@ -87,8 +94,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFeedView.setAdapter(mFeedViewAdapter);
     }
 
+    private void setupSwipeRefresh() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                mFeedViewAdapter.clear();
+                new GetRecentMediaAsyncTask(MainActivity.this, MainActivity.this).execute();
+            }
+        });
+
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+    }
+
     @Override
     public void onGetRecentMediaSuccessful(IGRecentMedia igRecentMedia) {
+        if (mIsFirstLaunch) {
+            mIsFirstLaunch = false;
+
+        } else {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+
         if (igRecentMedia.getImageList() == null || igRecentMedia.getImageList().size() == 0) {
             return;
         }

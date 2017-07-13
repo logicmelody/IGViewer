@@ -128,4 +128,12 @@ public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         mDataList.remove(mDataList.size() - 1);
         notifyDataSetChanged();
     }
+
+    public void refresh() {
+        notifyDataSetChanged();
+    }
+
+    public void clear() {
+        mDataList.clear();
+    }
 }
