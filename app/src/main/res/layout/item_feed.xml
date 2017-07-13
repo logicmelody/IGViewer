@@ -24,6 +24,14 @@
             android:textStyle="bold"
             android:textColor="@color/all_theme_blue" />
 
+        <TextView
+            android:id="@+id/text_view_feed_item_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/all_white"
+            android:maxLines="2"
+            android:ellipsize="end"/>
+
     </LinearLayout>
 
 </LinearLayout>

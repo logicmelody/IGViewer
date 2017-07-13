@@ -14,6 +14,7 @@ public class IGImageViewHolder extends BaseViewHolder {
 
     private DynamicHeightNetworkImageView mImageView;
     private TextView mLikeCountTextView;
+    private TextView mText;
 
     private OnClickFeedItemListener mOnClickFeedItemListener;
 
@@ -28,10 +29,15 @@ public class IGImageViewHolder extends BaseViewHolder {
     protected void findViews(View itemView) {
         mImageView = (DynamicHeightNetworkImageView) itemView.findViewById(R.id.image_view_feed_item_image);
         mLikeCountTextView = (TextView) itemView.findViewById(R.id.text_view_feed_item_like_count);
+        mText = (TextView) itemView.findViewById(R.id.text_view_feed_item_text);
     }
 
     @Override
     public void bind(final IGImage igImage) {
+        if (igImage == null) {
+            return;
+        }
+
         mRootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +51,7 @@ public class IGImageViewHolder extends BaseViewHolder {
 
         bindImage(igImage);
         bindLikeCount(igImage);
+        bindText(igImage);
     }
 
     private void bindImage(IGImage igImage) {
@@ -57,5 +64,9 @@ public class IGImageViewHolder extends BaseViewHolder {
 
     private void bindLikeCount(IGImage igImage) {
         mLikeCountTextView.setText(GeneralUtils.generateLikesString(itemView.getContext(), igImage.getLikeCount()));
+    }
+
+    private void bindText(IGImage igImage) {
+        mText.setText(igImage.getText());
     }
 }

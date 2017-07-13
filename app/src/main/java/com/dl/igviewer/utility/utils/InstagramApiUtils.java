@@ -37,6 +37,8 @@ public class InstagramApiUtils {
         public static final String THUMBNAIL = "thumbnail";
         public static final String URL = "url";
         public static final String STANDARD_RESOLUTION = "standard_resolution";
+        public static final String CAPTION = "caption";
+        public static final String TEXT = "text";
         public static final String CREATED_TIME = "created_time";
         public static final String LIKES = "likes";
         public static final String TYPE = "type";

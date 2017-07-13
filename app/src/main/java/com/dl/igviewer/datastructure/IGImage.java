@@ -8,6 +8,7 @@ public class IGImage implements Parcelable {
     private String mId;
     private String mThumbnailUrl;
     private String mStandardUrl;
+    private String mText;
 
     private float mRatio = 1F;
 
@@ -15,11 +16,12 @@ public class IGImage implements Parcelable {
     private int mLikeCount;
 
 
-    public IGImage(String id, String thumbnailUrl, String standardUrl,
+    public IGImage(String id, String thumbnailUrl, String standardUrl, String text,
                    float ratio, long createdTime, int likeCount) {
         mId = id;
         mThumbnailUrl = thumbnailUrl;
         mStandardUrl = standardUrl;
+        mText = text;
         mRatio = ratio;
         mCreatedTime = createdTime;
         mLikeCount = likeCount;
@@ -29,6 +31,7 @@ public class IGImage implements Parcelable {
         mId = in.readString();
         mThumbnailUrl = in.readString();
         mStandardUrl = in.readString();
+        mText = in.readString();
         mRatio = in.readFloat();
         mCreatedTime = in.readLong();
         mLikeCount = in.readInt();
@@ -39,6 +42,7 @@ public class IGImage implements Parcelable {
         dest.writeString(mId);
         dest.writeString(mThumbnailUrl);
         dest.writeString(mStandardUrl);
+        dest.writeString(mText);
         dest.writeFloat(mRatio);
         dest.writeLong(mCreatedTime);
         dest.writeInt(mLikeCount);
@@ -73,6 +77,10 @@ public class IGImage implements Parcelable {
         return mStandardUrl;
     }
 
+    public String getText() {
+        return mText;
+    }
+
     public long getCreatedTime() {
         return mCreatedTime;
     }
@@ -92,6 +100,7 @@ public class IGImage implements Parcelable {
                      .append("Id = ").append(mId).append("\n")
                      .append("ThumbnailUrl = ").append(mThumbnailUrl).append("\n")
                      .append("StandardUrl = ").append(mStandardUrl).append("\n")
+                     .append("Text = ").append(mText).append("\n")
                      .append("Ratio = ").append(mRatio).append("\n")
                      .append("CreatedTime = ").append(mCreatedTime).append("\n")
                      .append("LikeCount = ").append(mLikeCount).append("\n");
