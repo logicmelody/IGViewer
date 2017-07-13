@@ -21,5 +21,6 @@
 
     <!-- Display image -->
     <dimen name="padding_display_image_description">8dp</dimen>
+    <dimen name="text_size_display_image_description">30dp</dimen>
 
 </resources>

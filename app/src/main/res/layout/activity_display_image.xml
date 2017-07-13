@@ -23,8 +23,16 @@
                 android:id="@+id/text_view_display_image_like_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_display_image_description"
                 android:textStyle="bold"
                 android:textColor="@color/all_theme_blue" />
+
+            <TextView
+                android:id="@+id/text_view_display_image_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_display_image_description"
+                android:textColor="@color/all_white" />
 
         </LinearLayout>
 

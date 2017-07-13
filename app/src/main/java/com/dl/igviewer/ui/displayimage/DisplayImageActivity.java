@@ -20,6 +20,7 @@ public class DisplayImageActivity extends AppCompatActivity {
 
     private IGImage mIGImage;
     private TextView mLikeCountTextView;
+    private TextView mText;
 
 
     @Override
@@ -41,6 +42,7 @@ public class DisplayImageActivity extends AppCompatActivity {
     private void findViews() {
         mImageView = (DynamicHeightNetworkImageView) findViewById(R.id.image_view_display_image);
         mLikeCountTextView = (TextView) findViewById(R.id.text_view_display_image_like_count);
+        mText = (TextView) findViewById(R.id.text_view_display_image_text);
     }
 
     private void loadImage() {
@@ -59,6 +61,7 @@ public class DisplayImageActivity extends AppCompatActivity {
         }
 
         mLikeCountTextView.setText(GeneralUtils.generateLikesString(this, mIGImage.getLikeCount()));
+        mText.setText(mIGImage.getText());
     }
 
     private void setupActionBar() {
