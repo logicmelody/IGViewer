@@ -1,6 +1,7 @@
 package com.dl.igviewer.ui.login;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -100,10 +101,15 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void gotToMainPage() {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                finish();
 
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+        }, 1000);
     }
 
     @Override
