@@ -47,11 +47,11 @@ public class IGImageViewHolder extends BaseViewHolder {
     }
 
     private void bindImage(IGImage igImage) {
+        mImageView.setAspectRatio(igImage.getRatio());
+
         Picasso.with(itemView.getContext())
                 .load(igImage.getStandardUrl())
                 .into(mImageView);
-
-        mImageView.setAspectRatio(igImage.getRatio());
     }
 
     private void bindLikeCount(IGImage igImage) {
