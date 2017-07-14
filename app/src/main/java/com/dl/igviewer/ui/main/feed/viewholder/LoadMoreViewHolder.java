@@ -7,6 +7,8 @@ import android.widget.ProgressBar;
 import com.dl.igviewer.R;
 import com.dl.igviewer.datastructure.IGImage;
 import com.dl.igviewer.ui.main.feed.FeedViewAdapter.OnLoadMoreListener;
+import com.dl.igviewer.utility.utils.GeneralUtils;
+import com.dl.igviewer.utility.utils.HttpUtils;
 
 /**
  * Created by logicmelody on 2017/7/13.
@@ -31,6 +33,12 @@ public class LoadMoreViewHolder extends BaseViewHolder {
             @Override
             public void onClick(View view) {
                 if (mOnLoadMoreListener == null) {
+                    return;
+                }
+
+                if (!HttpUtils.isConnectToInternet(itemView.getContext())) {
+                    GeneralUtils.showConnectionErrorToast(itemView.getContext(), HttpUtils.ErrorCode.NO_CONNECTION);
+
                     return;
                 }
 
