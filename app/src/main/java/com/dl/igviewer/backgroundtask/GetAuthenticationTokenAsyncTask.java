@@ -19,11 +19,13 @@ public class GetAuthenticationTokenAsyncTask extends AsyncTask<String, Void, Str
 
     public interface OnGetAuthenticationTokenListener {
         void onGetAuthenticationTokenSuccessful();
-        void onGetAuthenticationTokenFailed();
+        void onGetAuthenticationTokenFailed(int errorCode);
     }
 
     private Context mContext;
     private OnGetAuthenticationTokenListener mOnGetAuthenticationTokenListener;
+
+    private int mErrorCode;
 
 
     public GetAuthenticationTokenAsyncTask(Context context, OnGetAuthenticationTokenListener listener) {
@@ -33,6 +35,12 @@ public class GetAuthenticationTokenAsyncTask extends AsyncTask<String, Void, Str
 
     @Override
     protected String doInBackground(String... params) {
+        if (!HttpUtils.isConnectToInternet(mContext)) {
+            mErrorCode = HttpUtils.ErrorCode.NO_CONNECTION;
+
+            return "";
+        }
+
         String jsonString;
         String token;
 
@@ -44,6 +52,8 @@ public class GetAuthenticationTokenAsyncTask extends AsyncTask<String, Void, Str
             token = JsonUtils.getStringFromJson(authenticationObject, InstagramApiUtils.EndPointKeys.ACCESS_TOKEN);
 
             if (TextUtils.isEmpty(token)) {
+                mErrorCode = HttpUtils.ErrorCode.GET_DATA_FAILED;
+
                 return "";
             }
 
@@ -51,6 +61,8 @@ public class GetAuthenticationTokenAsyncTask extends AsyncTask<String, Void, Str
                     .getLoginUserFromAuthentication(authenticationObject.getJSONObject(InstagramApiUtils.EndPointKeys.USER));
 
             if (loginUser == null) {
+                mErrorCode = HttpUtils.ErrorCode.GET_DATA_FAILED;
+
                 return "";
             }
 
@@ -58,10 +70,12 @@ public class GetAuthenticationTokenAsyncTask extends AsyncTask<String, Void, Str
 
         } catch (IOException e) {
             e.printStackTrace();
+            mErrorCode = HttpUtils.ErrorCode.GET_DATA_FAILED;
             token = "";
 
         } catch (JSONException e) {
             e.printStackTrace();
+            mErrorCode = HttpUtils.ErrorCode.GET_DATA_FAILED;
             token = "";
         }
 
@@ -78,7 +92,7 @@ public class GetAuthenticationTokenAsyncTask extends AsyncTask<String, Void, Str
         super.onPostExecute(token);
 
         if (TextUtils.isEmpty(token)) {
-            mOnGetAuthenticationTokenListener.onGetAuthenticationTokenFailed();
+            mOnGetAuthenticationTokenListener.onGetAuthenticationTokenFailed(mErrorCode);
 
         } else {
             mOnGetAuthenticationTokenListener.onGetAuthenticationTokenSuccessful();

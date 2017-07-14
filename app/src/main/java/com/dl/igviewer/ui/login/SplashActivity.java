@@ -122,8 +122,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void onGetAuthenticationTokenFailed() {
+    public void onGetAuthenticationTokenFailed(int errorCode) {
         mLoginButton.setVisibility(View.VISIBLE);
+        GeneralUtils.showConnectionErrorToast(this, errorCode);
     }
 
     @Override
@@ -132,7 +133,8 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void onGetLoginUserFailed() {
+    public void onGetLoginUserFailed(int errorCode) {
         mLoginButton.setVisibility(View.VISIBLE);
+        GeneralUtils.showConnectionErrorToast(this, errorCode);
     }
 }
