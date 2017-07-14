@@ -1,7 +1,10 @@
 package com.dl.igviewer.utility.utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import java.io.IOException;
 import java.util.Map;
@@ -15,6 +18,13 @@ public class HttpUtils {
 
     private static final OkHttpClient sHttpClient = new OkHttpClient();
 
+
+    public static boolean isConnectToInternet(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 
     public static String getJsonStringFromUrl(String url) throws IOException {
         Response response = sHttpClient.newCall(getRequest(url)).execute();

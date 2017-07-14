@@ -1,6 +1,7 @@
 package com.dl.igviewer.utility.utils;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.dl.igviewer.R;
 
@@ -13,5 +14,9 @@ public class GeneralUtils {
     public static String generateLikesString(Context context, int likeCount) {
         return new StringBuilder().append(likeCount < 0 ? 0 : likeCount).append(" ")
                                   .append(context.getString(R.string.all_likes)).toString();
+    }
+
+    public static void showNoConnectionToast(Context context) {
+        Toast.makeText(context, context.getString(R.string.all_no_connection), Toast.LENGTH_SHORT).show();
     }
 }

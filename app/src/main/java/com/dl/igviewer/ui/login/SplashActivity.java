@@ -13,6 +13,8 @@ import com.dl.igviewer.backgroundtask.GetAuthenticationTokenAsyncTask;
 import com.dl.igviewer.backgroundtask.GetLoginUserAsyncTask;
 import com.dl.igviewer.ui.main.InstagramDataCache;
 import com.dl.igviewer.ui.main.MainActivity;
+import com.dl.igviewer.utility.utils.GeneralUtils;
+import com.dl.igviewer.utility.utils.HttpUtils;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener,
         GetAuthenticationTokenAsyncTask.OnGetAuthenticationTokenListener, GetLoginUserAsyncTask.OnGetLoginUserListener {
@@ -61,6 +63,12 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_splash_screen_login:
+                if (!HttpUtils.isConnectToInternet(this)) {
+                    GeneralUtils.showNoConnectionToast(this);
+
+                    break;
+                }
+
                 startActivityForResult(new Intent(SplashActivity.this, InstagramLoginActivity.class), REQUEST_INSTAGRAM_LOGIN);
 
                 break;
