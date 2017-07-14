@@ -125,6 +125,10 @@ public class FeedViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public void removeLoadMoreButton() {
+        if (mDataList.size() == 0) {
+            return;
+        }
+
         mDataList.remove(mDataList.size() - 1);
         notifyDataSetChanged();
     }
