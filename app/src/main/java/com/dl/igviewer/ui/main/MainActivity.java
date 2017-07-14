@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
 
-                mFeedViewAdapter.clear();
                 new GetRecentMediaAsyncTask(MainActivity.this, MainActivity.this).execute();
             }
         });
@@ -127,8 +126,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onGetRecentMediaSuccessful(IGRecentMedia igRecentMedia) {
         updateLoadingUi();
 
-        if (igRecentMedia.getImageList() == null || igRecentMedia.getImageList().size() == 0) {
+        if (igRecentMedia.getImageList() == null) {
             return;
+        }
+
+        if (igRecentMedia.getIsFromRefresh()) {
+            mFeedViewAdapter.clear();
         }
 
         mFeedViewAdapter.add(igRecentMedia.getImageList());

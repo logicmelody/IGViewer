@@ -37,16 +37,20 @@ public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia
 
     private int mErrorCode;
 
+    private boolean mIsFromRefresh = false;
+
 
     public GetRecentMediaAsyncTask(Context context, OnGetRecentMediaListener listener) {
         mContext = context;
         mOnGetRecentMediaListener = listener;
+        mIsFromRefresh = true;
     }
 
     public GetRecentMediaAsyncTask(Context context, OnGetRecentMediaListener listener, String url) {
         mContext = context;
         mOnGetRecentMediaListener = listener;
         mUrl = url;
+        mIsFromRefresh = false;
     }
 
     @Override
@@ -133,7 +137,7 @@ public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia
             return null;
         }
 
-        return new IGRecentMedia(nextUrl, imageList);
+        return new IGRecentMedia(nextUrl, mIsFromRefresh, imageList);
     }
 
     @Override
