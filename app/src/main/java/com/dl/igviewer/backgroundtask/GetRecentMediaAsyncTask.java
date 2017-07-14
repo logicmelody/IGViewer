@@ -26,7 +26,7 @@ public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia
 
     public interface OnGetRecentMediaListener {
         void onGetRecentMediaSuccessful(IGRecentMedia igRecentMedia);
-        void onGetRecentMediaFailed();
+        void onGetRecentMediaFailed(int errorCode);
     }
 
     private Context mContext;
@@ -34,6 +34,8 @@ public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia
 
     private String mUserId;
     private String mUrl;
+
+    private int mErrorCode;
 
 
     public GetRecentMediaAsyncTask(Context context, OnGetRecentMediaListener listener) {
@@ -49,6 +51,12 @@ public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia
 
     @Override
     protected IGRecentMedia doInBackground(Void... params) {
+        if (!HttpUtils.isConnectToInternet(mContext)) {
+            mErrorCode = HttpUtils.ErrorCode.NO_CONNECTION;
+
+            return null;
+        }
+
         String getRecentMediaUrl = TextUtils.isEmpty(mUrl) ?
                 InstagramApiUtils.getRecentMediaUrl(InstagramDataCache.getTokenFromSharedPreference(mContext),
                                                     mUserId, "", "", DEFAULT_COUNT) : mUrl;
@@ -61,6 +69,8 @@ public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia
             JSONObject jsonObject = new JSONObject(jsonString);
 
             if (JsonUtils.getJsonObjectFromJson(jsonObject, EndPointKeys.PAGINATION) == null) {
+                mErrorCode = HttpUtils.ErrorCode.GET_DATA_FAILED;
+
                 return null;
             }
 
@@ -72,6 +82,8 @@ public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia
             JSONArray dataJsonArray = JsonUtils.getJsonArrayFromJson(jsonObject, EndPointKeys.DATA);
 
             if (dataJsonArray == null) {
+                mErrorCode = HttpUtils.ErrorCode.GET_DATA_FAILED;
+
                 return null;
             }
 
@@ -85,6 +97,8 @@ public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia
                 JSONObject imageJson = JsonUtils.getJsonObjectFromJson(dataJson, EndPointKeys.IMAGES);
 
                 if (imageJson == null) {
+                    mErrorCode = HttpUtils.ErrorCode.GET_DATA_FAILED;
+
                     continue;
                 }
 
@@ -108,10 +122,14 @@ public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia
 
         } catch (IOException e) {
             e.printStackTrace();
+            mErrorCode = HttpUtils.ErrorCode.GET_DATA_FAILED;
+
             return null;
 
         } catch (JSONException e) {
             e.printStackTrace();
+            mErrorCode = HttpUtils.ErrorCode.GET_DATA_FAILED;
+
             return null;
         }
 
@@ -123,7 +141,7 @@ public class GetRecentMediaAsyncTask extends AsyncTask<Void, Void, IGRecentMedia
         super.onPostExecute(igRecentMedia);
 
         if (igRecentMedia == null) {
-            mOnGetRecentMediaListener.onGetRecentMediaFailed();
+            mOnGetRecentMediaListener.onGetRecentMediaFailed(mErrorCode);
 
         } else {
             mOnGetRecentMediaListener.onGetRecentMediaSuccessful(igRecentMedia);

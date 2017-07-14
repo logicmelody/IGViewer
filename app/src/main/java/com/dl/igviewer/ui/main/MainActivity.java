@@ -21,6 +21,7 @@ import com.dl.igviewer.ui.displayimage.DisplayImageActivity;
 import com.dl.igviewer.ui.login.SplashActivity;
 import com.dl.igviewer.ui.main.feed.FeedViewAdapter;
 import com.dl.igviewer.ui.profile.ProfileActivity;
+import com.dl.igviewer.utility.utils.GeneralUtils;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -144,8 +145,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onGetRecentMediaFailed() {
+    public void onGetRecentMediaFailed(int errorCode) {
         updateLoadingUi();
+        GeneralUtils.showConnectionErrorToast(this, errorCode);
     }
 
     @Override

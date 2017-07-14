@@ -64,7 +64,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         switch (view.getId()) {
             case R.id.button_splash_screen_login:
                 if (!HttpUtils.isConnectToInternet(this)) {
-                    GeneralUtils.showNoConnectionToast(this);
+                    GeneralUtils.showConnectionErrorToast(this, HttpUtils.ErrorCode.NO_CONNECTION);
 
                     break;
                 }

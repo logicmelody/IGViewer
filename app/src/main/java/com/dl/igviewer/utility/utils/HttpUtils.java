@@ -19,6 +19,11 @@ public class HttpUtils {
     private static final OkHttpClient sHttpClient = new OkHttpClient();
 
 
+    public static final class ErrorCode {
+        public static final int NO_CONNECTION = 0;
+        public static final int GET_DATA_FAILED = 1;
+    }
+
     public static boolean isConnectToInternet(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();

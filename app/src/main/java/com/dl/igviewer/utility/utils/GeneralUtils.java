@@ -16,7 +16,21 @@ public class GeneralUtils {
                                   .append(context.getString(R.string.all_likes)).toString();
     }
 
-    public static void showNoConnectionToast(Context context) {
-        Toast.makeText(context, context.getString(R.string.all_no_connection), Toast.LENGTH_SHORT).show();
+    public static void showConnectionErrorToast(Context context, int errorCode) {
+        String toastText = context.getString(R.string.all_no_connection);
+
+        switch (errorCode) {
+            case HttpUtils.ErrorCode.NO_CONNECTION:
+                toastText = context.getString(R.string.all_no_connection);
+
+                break;
+
+            case HttpUtils.ErrorCode.GET_DATA_FAILED:
+                toastText = context.getString(R.string.all_get_data_failed);
+
+                break;
+        }
+
+        Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
     }
 }
